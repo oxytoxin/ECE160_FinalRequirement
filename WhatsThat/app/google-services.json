@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "305994911932",
+    "project_id": "whatsthat-735e3",
+    "storage_bucket": "whatsthat-735e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305994911932:android:800039ea4ff4a8154100b9",
+        "android_client_info": {
+          "package_name": "me.toxinsgrace.whatsthat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305994911932-em2fn0212kqbub0eqbq1es7fgd973jm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6eRJGnCJuLFHwET6J6PSDamSKplcWmVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305994911932-em2fn0212kqbub0eqbq1es7fgd973jm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
