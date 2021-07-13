@@ -3,7 +3,9 @@ package me.toxinsgrace.whatsthat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 1340;
     private FirebaseAuth mAuth;
-    Button signout;
     SignInButton sign_in_button;
-    TextView lblName;
 
 
     @Override
@@ -47,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
 
-        signout = findViewById(R.id.sign_out);
         sign_in_button = findViewById(R.id.sign_in_button);
-        lblName = findViewById(R.id.lblName);
         sign_in_button.setOnClickListener(v -> {
             signIn();
         });
@@ -63,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
             updateUI(currentUser);
         }else{
             sign_in_button.setEnabled(true);
-            signout.setEnabled(false);
-            lblName.setText("");
         }
 
     }
@@ -114,18 +110,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser account) {
-        Toast.makeText(this, account.getUid() + " already Signed In.", Toast.LENGTH_SHORT).show();
-        lblName.setText("Hello " + account.getDisplayName() + "!");
-        sign_in_button.setEnabled(false);
-        signout.setEnabled(true);
-    }
-
-    public void signout(View view){
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(this, "Signed out successfully!", Toast.LENGTH_SHORT).show();
-        lblName.setText("");
-        signout.setEnabled(false);
-        sign_in_button.setEnabled(true);
+        SharedPreferences prefs = this.getSharedPreferences(getString(R.string.project_id),Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("user_id", account.getUid());
+        editor.putString("user_name", account.getDisplayName());
+        editor.apply();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        this.finish();
+        Toast.makeText(this, "Welcome " + prefs.getString("user_name", "Anonymous"), Toast.LENGTH_SHORT).show();
     }
 
 
